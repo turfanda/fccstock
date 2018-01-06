@@ -1,0 +1,20 @@
+{
+  "name": "fcc-stock-trace",
+  "version": "0.0.1",
+  "description": "just trace stock",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "type":"git",
+    "url": "https://github.com/turfanda/fccstock.git"
+  },
+  "license": "MIT" 
+}
