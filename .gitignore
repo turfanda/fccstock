@@ -1,0 +1,7 @@
+note.txt
+node_modules/
+.config/
+.gitconfig
+.viminfo
+.glitch-assets
+.gitignore.swp
