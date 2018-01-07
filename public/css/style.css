@@ -1,4 +1,10 @@
-.stock-zone{
-  border:solid green 1px;
+.stockZone{
+  border:solid blue 1px;
   min-height:200px;
+}
+.stockBox{
+  border:solid red 1px;
+  display:inline-block;
+  min-width:50px;
+  margin:2px;
 }

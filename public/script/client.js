@@ -12,11 +12,14 @@ function makeid() {
 
 $(function(){
   $(".addBtn").on("click",function(){
+    if(stocks.length>9){
+      alert("you can trace 10 stock max")
+    }
     var stockName=makeid();
     stocks.push(stockName);
     console.log(stocks);
   
-    $("<div>").attr("id",stockName).  
+    $(".stockZone").append($("<div>").attr("id",stockName).text(stockName).addClass("stockBox"));
   
   });
 
