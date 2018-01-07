@@ -13,14 +13,15 @@ function makeid() {
 $(function(){
   $(".addBtn").on("click",function(){
     if(stocks.length>9){
-      alert("you can trace 10 stock max")
+      alert("you can view up to 10 stock");
+      return;
     }
-    var stockName=makeid();
-    stocks.push(stockName);
-    console.log(stocks);
-  
-    $(".stockZone").append($("<div>").attr("id",stockName).text(stockName).addClass("stockBox"));
-  
+    else{
+      var stockName=makeid();
+      stocks.push(stockName);
+      console.log(stocks);
+      $(".stockZone").append($("<div>").attr("id",stockName).text(stockName).addClass("stockBox"));
+    } 
   });
 
 
