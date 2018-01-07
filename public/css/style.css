@@ -2,9 +2,25 @@
   border:solid blue 1px;
   min-height:200px;
 }
-.stockBox{
-  border:solid red 1px;
-  display:inline-block;
-  min-width:50px;
-  margin:2px;
+.stockBox {
+    font-size: 12px;
+    font-family: tahoma;
+    width: 100px;
+    border: 1px solid #ccc;
+    color: #555;
+    display: inline-block;
+    padding: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+    margin:10px;
+}
+
+.stockBox:hover {
+    box-shadow: 2px 2px 5px rgba(0,0,0,.2);
+
+}
+#close {
+    float:right;
+    padding:2px 5px;
+    background:#ccc;
 }

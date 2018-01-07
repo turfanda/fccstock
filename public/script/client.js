@@ -1,4 +1,5 @@
 var stocks=[];
+var socket;
 
 function makeid() {
     var text = "";
@@ -11,6 +12,7 @@ function makeid() {
 }
 
 $(function(){
+    socket = io.connect('http://localhost:3000');
   $(".addBtn").on("click",function(){
     if(stocks.length>9){
       alert("you can view up to 10 stock");
@@ -20,37 +22,9 @@ $(function(){
       var stockName=makeid();
       stocks.push(stockName);
       console.log(stocks);
-      $(".stockZone").append($("<div>").attr("id",stockName).text(stockName).addClass("stockBox"));
+      $(".stockZone").append($("<div>").attr("id",stockName).text(stockName).addClass("stockBox").append($("<span id='close'>x</span>")));
     } 
   });
 
 
 });
-
- /*   <div  class="fragment" >
-        <span id='close'>x</span>
-asdasdasd
-</div>
-
-.fragment {
-    font-size: 12px;
-    font-family: tahoma;
-    width: 100px;
-    border: 1px solid #ccc;
-    color: #555;
-    display: block;
-    padding: 10px;
-    box-sizing: border-box;
-    text-decoration: none;
-}
-
-.fragment:hover {
-    box-shadow: 2px 2px 5px rgba(0,0,0,.2);
-
-}
-#close {
-    float:right;
-    display:inline-block;
-    padding:2px 5px;
-    background:#ccc;
-}*/
