@@ -14,6 +14,15 @@ function makeid() {
 
 $(function(){
   socket = io.connect('https://fcc-stock-trace.glitch.me:3000');
+  socket.on('stockArray',function(data){
+    $(".stockZone").remove();
+    var x =$("<div>").addClass("stockZone");
+    $.each(data,function(index,item){
+    x.append($("<div>").attr("id",item).text(item).addClass("stockBox").append($("<span id='close'>x</span>")));   
+    });
+    $(".container").append()
+    
+  });
   $(".addBtn").on("click",function(){
     if(stocks.length>9){
       alert("you can view up to 10 stock");
