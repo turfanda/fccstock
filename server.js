@@ -25,7 +25,7 @@ io.sockets.on('connection',function(socket) {
   console.log("We have a new client: " + socket.id);
   socket.on('stockArray',function(data) {
     console.log(data);
-    socket.broadcast.emit('mouse', data);
+    socket.broadcast.emit('stockArray', data);
     // This is a way to send to everyone including sender
     // io.sockets.emit('message', "this goes to everyone");
   });

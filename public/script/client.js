@@ -12,7 +12,7 @@ function makeid() {
 }
 
 $(function(){
-    socket = io.connect('http://localhost:3000');
+  socket = io.connect('https://fcc-stock-trace.glitch.me/:3000');
   $(".addBtn").on("click",function(){
     if(stocks.length>9){
       alert("you can view up to 10 stock");
