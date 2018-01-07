@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var io=require("socket.io")(listener);
+var io=require("socket.io").listen(listener);
 var app = express();
 
 
