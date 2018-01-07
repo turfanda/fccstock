@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var routes = require("./routes/routes");
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var io=require("socket.io")(listener);
 var app = express();
 
 
@@ -19,6 +20,19 @@ app.use(session({
     saveUninitialized: true,
     resave: true
 }));
+
+io.sockets.on('connection',function(socket) {
+  console.log("We have a new client: " + socket.id);
+  socket.on('stockArray',function(data) {
+    console.log(data);
+    socket.broadcast.emit('mouse', data);
+    // This is a way to send to everyone including sender
+    // io.sockets.emit('message', "this goes to everyone");
+  });
+  socket.on('disconnect', function() {
+    console.log("Client has disconnected");
+  });
+});
 
 app.use("/", routes);
 
