@@ -2,24 +2,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var routes = require("./routes/routes");
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var io=require("socket.io")(listener);
 var app = express();
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
 app.use("/",express.static('public'));
 
-app.use(session({
-    secret: 'turfanda',
-    saveUninitialized: true,
-    resave: true
-}));
+
+app.get('/', function(req, res,next) {  
+    res.sendFile(__dirname + '/views/index.html');
+});
 
 io.sockets.on('connection',function(socket) {
   console.log("We have a new client: " + socket.id);
@@ -34,7 +28,7 @@ io.sockets.on('connection',function(socket) {
   });
 });
 
-app.use("/", routes);
+
 
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
