@@ -1,3 +1,4 @@
 .stock-zone{
-border:solid green 1px;
+  border:solid green 1px;
+  min-height:200px;
 }
