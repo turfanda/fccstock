@@ -21,13 +21,12 @@ $(function() {
     socket.on('stockArray', function(data) {
       console.log(data);  
       $(".stockZone").remove();
-        apikey=data.apikey
-        stocks = data.stocknames;
+       data;
         var x = $("<div>").addClass("stockZone");
-      /*  $.each(data.stocknames, function(index, item) {
+      $.each(data, function(index, item) {
             x.append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
         });
-        $(".container").append(x);*/
+        $(".container").append(x);
 
     });
     $(".addBtn").on("click", function() {
