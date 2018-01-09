@@ -13,6 +13,7 @@ function makeid() {
 
 
 $(function(){
+  //socket = io();
   socket = io.connect('https://fcc-stock-trace.glitch.me:3000');
   socket.on('stockArray',function(data){
     $(".stockZone").remove();

@@ -1,11 +1,15 @@
 var express = require('express');
+var app = express();
+var listener = app.listen(process.env.PORT, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var io=require("socket.io").listen(listener);
-var app = express();
+
 
 
 app.use("/",express.static('public'));
@@ -27,11 +31,3 @@ io.sockets.on('connection',function(socket) {
     console.log("Client has disconnected");
   });
 });
-
-
-
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
-
-
