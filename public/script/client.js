@@ -13,7 +13,6 @@ function makeid() {
 
 
 $(function(){
-  //socket = io();
   socket = io();
   socket.on('stockArray',function(data){
     $(".stockZone").remove();
@@ -35,10 +34,10 @@ $(function(){
       stocks.push(stockName);
       socket.emit("stockArray",stocks);
       console.log(stocks);
-      $(".stockZone").append($("<div>").attr("id",stockName).text(stockName).addClass("stockBox").append($("<span id='close'>x</span>")));
+      $(".stockZone").append($("<div>").attr("id",stockName).text(stockName).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
     } 
   });
-   $('body).on('click',".closeBtn",function(){
+   $(document).on('click',".closeBtn",function(){
    $(this).parent().remove();
   });
   $(".stockBtn").on("click",function(){

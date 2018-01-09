@@ -31,7 +31,10 @@ app.get('/', function(req, res,next) {
 io.sockets.on('connection',function(socket) {
   console.log("We have a new client: " + socket.id);
   socket.on('stockArray',function(data) {
-    console.log(1);
+    var newStock = new stockOp({
+      traceparam:"allStock",
+      stockNames: data
+    })
     stockOp.removeStock(function(err){
     if(err) {
       throw err;
@@ -40,12 +43,6 @@ io.sockets.on('connection',function(socket) {
       console.log("stockdeleted");
 
     });
-    
-    var newStock = new stockOp({
-      traceparam:"allStock",
-      stockNames: data
-    })
-    console.log(newStock);
     stockOp.saveStock(newStock,function(err){
     if(err) {
       throw err;
@@ -54,6 +51,11 @@ io.sockets.on('connection',function(socket) {
       console.log("stocksaved");
 
     });
+    var sendifno={
+      apikey:process.env.ALPHA_API_KEY,
+      stocknames:data,
+    }
+
     socket.broadcast.emit('stockArray', data);
   });
   socket.on('disconnect', function() {

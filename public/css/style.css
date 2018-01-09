@@ -19,8 +19,12 @@
     box-shadow: 2px 2px 5px rgba(0,0,0,.2);
 
 }
-#close {
+.closeBtn {
     float:right;
-    padding:2px 5px;
-    background:#ccc;
+    cursor:pointer;
+    color: black;
+    border: 1px solid #FFF;
+    font-size: 10px;
+    line-height: 0px;
+    padding: 0px 2px 0px 2px;
 }
