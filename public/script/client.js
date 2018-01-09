@@ -17,6 +17,7 @@ $(function(){
   socket = io();
   socket.on('stockArray',function(data){
     $(".stockZone").remove();
+    stocks=data;
     var x =$("<div>").addClass("stockZone");
     $.each(data,function(index,item){
     x.append($("<div>").attr("id",item).text(item).addClass("stockBox").append($("<span id='close'>x</span>")));   
