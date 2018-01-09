@@ -3,10 +3,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var stockNameSchema = new Schema({
-	traceparam:{type: String},
-  stockNames: [{"stockName":{type: Strin,
-      'default': []
-    }}]
+	traceparam:{type: String,default: "allStock"},
+  stockNames: [{"stockName":{type: String,default: "goog"}}]
 });
 
 var stockName = mongoose.model("pollData",stockNameSchema);

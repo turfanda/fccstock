@@ -31,7 +31,26 @@ app.get('/', function(req, res,next) {
 io.sockets.on('connection',function(socket) {
   console.log("We have a new client: " + socket.id);
   socket.on('stockArray',function(data) {
-    
+    stockOp.removeStock(function(err){
+    if(err) {
+      throw err;
+      }
+    else
+      console.log("stockdeleted");
+
+    });
+    var newStock = new stockOp({
+      traceparam:"allStock",
+      stockNames: data
+    })
+    stockOp.saveStock(newStock,function(err){
+    if(err) {
+      throw err;
+      }
+    else
+      console.log("stocksaved");
+
+    });
     socket.broadcast.emit('stockArray', data);
     // This is a way to send to everyone including sender
     // io.sockets.emit('message', "this goes to everyone");
