@@ -40,7 +40,7 @@ $(function(){
   });
   $(".stockBtn").on("click",function(){
     $.ajax({
-      url: "https://www.alphavantage.co/query?function="+"TIME_SERIES_MONTHLY_ADJUSTED"+"&symbol="+"MSFT"+"&apikey="+"HEUIOKJSMVGQQKFR",
+      url: "https://www.alphavantage.co/query?function="+"TIME_SERIES_MONTHLY_ADJUSTED"+"&symbol="+"MSFxxT"+"&apikey="+"HEUIOKJSMVGQQKFR",
       type:"get",
       success: function(data){
     console.log(data);
