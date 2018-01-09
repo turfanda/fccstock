@@ -20,3 +20,8 @@ module.exports.removeStock = function(callback){
    var query = {traceparam: "allStock"};
 	 stockName.remove(query, callback);
 }
+
+module.exports.getStock = function(callback){
+   var query = {traceparam: "allStock"};
+	 stockName.find(query,callback);
+}

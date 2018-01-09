@@ -31,6 +31,16 @@ app.get('/apikey', function(req, res,next) {
   var apikey=process.env.ALPHA_API_KEY;  
   res.json(apikey);
 });
+app.get('/getstock', function(req, res,next) {  
+  stockOp.getStock(function(err,asd){
+    if(err) {
+      throw err;
+      }
+    else
+      console.log("stockserved");
+    res.json(asd);
+    });
+});
 
 io.sockets.on('connection',function(socket) {
   console.log("We have a new client: " + socket.id);

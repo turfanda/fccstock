@@ -31,6 +31,20 @@ function getfinanceinfo(){
     type:"get",
     success: function(data){
       stocks=data;
+      $.each(stocks,function(index,item){
+         $.ajax({
+            url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item+ "&apikey=" + apikey,
+            type: "get",
+            success: function(data) {
+                  stockVal.push(data);
+              $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
+                    
+                }
+        });
+      
+      
+      
+      });
     
     }
   });
@@ -38,8 +52,10 @@ function getfinanceinfo(){
 }
 
 $(function() {
-    if (!apikey)
+  if (!apikey)
         getapikey();
+  if(stocks.length===0)
+    getfinanceinfo();
 
     socket = io();
     socket.on('stockArray', function(data) {
