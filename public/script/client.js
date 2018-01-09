@@ -20,7 +20,7 @@ $(function(){
     stocks=data;
     var x =$("<div>").addClass("stockZone");
     $.each(data,function(index,item){
-    x.append($("<div>").attr("id",item).text(item).addClass("stockBox").append($("<span id='close'>x</span>")));   
+    x.append($("<div>").attr("id",item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));   
     });
     $(".container").append(x);
     
@@ -37,6 +37,9 @@ $(function(){
       console.log(stocks);
       $(".stockZone").append($("<div>").attr("id",stockName).text(stockName).addClass("stockBox").append($("<span id='close'>x</span>")));
     } 
+  });
+   $('body).on('click',".closeBtn",function(){
+   $(this).parent().remove();
   });
   $(".stockBtn").on("click",function(){
     $.ajax({

@@ -31,6 +31,7 @@ app.get('/', function(req, res,next) {
 io.sockets.on('connection',function(socket) {
   console.log("We have a new client: " + socket.id);
   socket.on('stockArray',function(data) {
+    console.log(1);
     stockOp.removeStock(function(err){
     if(err) {
       throw err;
@@ -39,10 +40,12 @@ io.sockets.on('connection',function(socket) {
       console.log("stockdeleted");
 
     });
+    
     var newStock = new stockOp({
       traceparam:"allStock",
       stockNames: data
     })
+    console.log(newStock);
     stockOp.saveStock(newStock,function(err){
     if(err) {
       throw err;
@@ -52,8 +55,6 @@ io.sockets.on('connection',function(socket) {
 
     });
     socket.broadcast.emit('stockArray', data);
-    // This is a way to send to everyone including sender
-    // io.sockets.emit('message', "this goes to everyone");
   });
   socket.on('disconnect', function() {
     console.log("Client has disconnected");

@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 
 var stockNameSchema = new Schema({
 	traceparam:{type: String,default: "allStock"},
-  stockNames: [{"stockName":{type: String,default: "goog"}}]
+  stockNames: {type:Array}
 });
 
-var stockName = mongoose.model("pollData",stockNameSchema);
+var stockName = mongoose.model("stockName",stockNameSchema);
 
 module.exports = stockName;
 
