@@ -1,5 +1,7 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var stockOp = require('./model/stockop');
+
 var app = express();
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
@@ -29,7 +31,7 @@ app.get('/', function(req, res,next) {
 io.sockets.on('connection',function(socket) {
   console.log("We have a new client: " + socket.id);
   socket.on('stockArray',function(data) {
-    console.log(data);
+    
     socket.broadcast.emit('stockArray', data);
     // This is a way to send to everyone including sender
     // io.sockets.emit('message', "this goes to everyone");
