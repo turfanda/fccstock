@@ -15,12 +15,10 @@ function getapikey() {
 }
 
 function getfinanceinfo(){
-  console.log(1);
   $.ajax({
     url:"/getstock",
     type:"get",
     success: function(data){
-      console.log(data);
       $.each(data,function(index,item){
         console.log(item);
         stocks.push(item);
@@ -46,12 +44,20 @@ $(function() {
 
     socket = io();
     socket.on('stockArray', function(data) {
-        $(".stockZone").remove();
-        var x = $("<div>").addClass("stockZone");
-        $.each(data, function(index, item) {
-            x.append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
+      stocks=data;
+      $.each(stocks,function(index,item){
+        console.log(item);
+        stocks.push(item);
+        $(".stockBox").remove();
+         $.ajax({
+            url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item+ "&apikey=" + apikey,
+            type: "get",
+            success: function(data) {
+                  stockVal.push(data);
+              $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));  
+                }
         });
-        $(".container").append(x);
+      });
     });
 
     $("#getStock").on("click", function() {
