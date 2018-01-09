@@ -51,11 +51,14 @@ io.sockets.on('connection',function(socket) {
       console.log("stocksaved");
 
     });
+    var apikey=process.env.ALPHA_API_KEY;
+    
     var sendinfo={
       apikey:process.env.ALPHA_API_KEY,
       stocknames:data,
     }
     socket.broadcast.emit('stockArray', sendinfo);
+    io.sockets.emit('stockArray', apikey);
   });
   socket.on('disconnect', function() {
     console.log("Client has disconnected");

@@ -1,5 +1,6 @@
 var stocks = [];
 var socket;
+var apikey;
 
 function makeid() {
     var text = "";
@@ -18,13 +19,15 @@ $(function() {
         console.log(data);
     });
     socket.on('stockArray', function(data) {
-        $(".stockZone").remove();
-        stocks = data;
+      console.log(data);  
+      $(".stockZone").remove();
+        apikey=data.apikey
+        stocks = data.stocknames;
         var x = $("<div>").addClass("stockZone");
-        $.each(data, function(index, item) {
+      /*  $.each(data.stocknames, function(index, item) {
             x.append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
         });
-        $(".container").append(x);
+        $(".container").append(x);*/
 
     });
     $(".addBtn").on("click", function() {
@@ -41,10 +44,12 @@ $(function() {
     });
     $(document).on('click', ".closeBtn", function() {
       stocks=[];
-
-        $(this).parent().remove();
-        console.log(stocks);
-        socket.emit("stockArray", stocks);
+      $(this).parent().remove();
+      $(".stockBox").each(function(index,item){
+      stocks.push($(this).attr("id"));
+      });
+      console.log(stocks);
+      socket.emit("stockArray", stocks);
     });
     $(".stockBtn").on("click", function() {
         $.ajax({
