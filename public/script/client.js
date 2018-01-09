@@ -14,14 +14,14 @@ function makeid() {
 
 $(function(){
   //socket = io();
-  socket = io.connect('https://fcc-stock-trace.glitch.me:3000');
+  socket = io();
   socket.on('stockArray',function(data){
     $(".stockZone").remove();
     var x =$("<div>").addClass("stockZone");
     $.each(data,function(index,item){
     x.append($("<div>").attr("id",item).text(item).addClass("stockBox").append($("<span id='close'>x</span>")));   
     });
-    $(".container").append()
+    $(".container").append(x);
     
   });
   $(".addBtn").on("click",function(){
