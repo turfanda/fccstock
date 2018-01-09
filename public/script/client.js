@@ -3,22 +3,11 @@ var stockVal = [];
 var socket;
 var apikey;
 
-function makeid() {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < 5; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-}
-
 function getapikey() {
     $.ajax({
         url: "/apikey",
         type: "get",
         success: function(data) {
-            console.log(data);
             apikey = data;
         }
     });
@@ -30,22 +19,18 @@ function getfinanceinfo(){
     url:"/getstock",
     type:"get",
     success: function(data){
-      stocks=data;
-      $.each(stocks,function(index,item){
+      $.each(data,function(index,item){
+        console.log(item);
+        stocks.push(item);
          $.ajax({
             url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item+ "&apikey=" + apikey,
             type: "get",
             success: function(data) {
                   stockVal.push(data);
-              $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
-                    
+              $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));  
                 }
         });
-      
-      
-      
       });
-    
     }
   });
 
