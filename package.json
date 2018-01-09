@@ -11,6 +11,7 @@
     "socket.io": "^2.0.4",
     "body-parser": "*",
     "cookie-parser": "^1.4.1",
+    "mongoose": "^4.13.8",
     "express-session": "^1.15.6",
     "express-validator": "^4.3.0"
   },

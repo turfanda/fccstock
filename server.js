@@ -1,4 +1,5 @@
 var express = require('express');
+var mongoose = require('mongoose');
 var app = express();
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
@@ -10,7 +11,13 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var io=require("socket.io").listen(listener);
 
-
+mongoose.connect(process.env.MONGO_URI, {useMongoClient: true}, function(err){
+    if(err) {
+        console.log('Some problem with the connection ' +err);
+    } else {
+        console.log('The Mongoose connection is ready');
+    }
+});
 
 app.use("/",express.static('public'));
 
