@@ -12,22 +12,32 @@ function makeid() {
     return text;
 }
 
+function getapikey() {
+    $.ajax({
+        url: "/apikey",
+        type: "get",
+        success: function(data) {
+            console.log(data);
+            apikey = data;
+        }
+    });
+
+}
 
 $(function() {
+    if (!apikey)
+        getapikey();
+
     socket = io();
-    socket.on(function(data) {
-        console.log(data);
-    });
     socket.on('stockArray', function(data) {
-      console.log(data);  
-      $(".stockZone").remove();
-       data;
+        console.log(data);
+        $(".stockZone").remove();
+        data;
         var x = $("<div>").addClass("stockZone");
-      $.each(data, function(index, item) {
+        $.each(data, function(index, item) {
             x.append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
         });
         $(".container").append(x);
-
     });
     $(".addBtn").on("click", function() {
         if (stocks.length > 9) {
@@ -42,13 +52,13 @@ $(function() {
         }
     });
     $(document).on('click', ".closeBtn", function() {
-      stocks=[];
-      $(this).parent().remove();
-      $(".stockBox").each(function(index,item){
-      stocks.push($(this).attr("id"));
-      });
-      console.log(stocks);
-      socket.emit("stockArray", stocks);
+        stocks = [];
+        $(this).parent().remove();
+        $(".stockBox").each(function(index, item) {
+            stocks.push($(this).attr("id"));
+        });
+        console.log(stocks);
+        socket.emit("stockArray", stocks);
     });
     $(".stockBtn").on("click", function() {
         $.ajax({
