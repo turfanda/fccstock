@@ -15,10 +15,12 @@ function getapikey() {
 }
 
 function getfinanceinfo(){
+  console.log(1);
   $.ajax({
     url:"/getstock",
     type:"get",
     success: function(data){
+      console.log(data);
       $.each(data,function(index,item){
         console.log(item);
         stocks.push(item);
