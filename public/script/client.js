@@ -14,6 +14,9 @@ function makeid() {
 
 $(function(){
   socket = io();
+  socket.on(function(data){
+  console.log(data);
+  });
   socket.on('stockArray',function(data){
     $(".stockZone").remove();
     stocks=data;
@@ -38,7 +41,12 @@ $(function(){
     } 
   });
    $(document).on('click',".closeBtn",function(){
-   $(this).parent().remove();
+     stocks = $.grep(stocks, function(value) {
+       return value != $(this).parent().attr("id");
+     });
+    $(this).parent().remove();
+           console.log(stocks);
+           socket.emit("stockArray",stocks);
   });
   $(".stockBtn").on("click",function(){
     $.ajax({
