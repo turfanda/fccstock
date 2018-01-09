@@ -25,6 +25,18 @@ function getapikey() {
 
 }
 
+function getfinanceinfo(){
+  $.ajax({
+    url:"/getstock",
+    type:"get",
+    success: function(data){
+      stocks=data;
+    
+    }
+  });
+
+}
+
 $(function() {
     if (!apikey)
         getapikey();
