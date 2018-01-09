@@ -38,6 +38,15 @@ $(function(){
       $(".stockZone").append($("<div>").attr("id",stockName).text(stockName).addClass("stockBox").append($("<span id='close'>x</span>")));
     } 
   });
+  $(".stockBtn").on("click",function(){
+    $.ajax({
+      url: "https://www.alphavantage.co/query?function="+""+,
+      type:"get",
+      success: function(html){
+    $("#results").append(html);
+  }
+});
+  });
 
 
 });
