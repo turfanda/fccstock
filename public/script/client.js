@@ -43,6 +43,10 @@ $(function(){
       url: "https://www.alphavantage.co/query?function="+"TIME_SERIES_MONTHLY_ADJUSTED"+"&symbol="+"MSFxxT"+"&apikey="+"HEUIOKJSMVGQQKFR",
       type:"get",
       success: function(data){
+        if(data["Error Message"])
+        {
+          alert("Invalid Stock Code");
+        }
     console.log(data);
   }
 });
