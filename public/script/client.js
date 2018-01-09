@@ -1,4 +1,5 @@
 var stocks = [];
+var stockVal = [];
 var socket;
 var apikey;
 
@@ -30,7 +31,12 @@ $(function() {
 
     socket = io();
     socket.on('stockArray', function(data) {
-
+        $(".stockZone").remove();
+        var x = $("<div>").addClass("stockZone");
+        $.each(data, function(index, item) {
+            x.append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
+        });
+        $(".container").append(x);
     });
 
     $("#getStock").on("click", function() {
@@ -41,7 +47,8 @@ $(function() {
                 if (data["Error Message"]) {
                     alert("Invalid Stock Code");
                 } else {
-                    console.log(data);
+                  stockVal.push(data);
+                    console.log(stockVal);
                     if (stocks.length > 9) {
                         alert("you can view up to 10 stock");
                         return;
