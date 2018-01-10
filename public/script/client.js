@@ -28,15 +28,7 @@ function getfinanceinfo() {
                     success: function(data) {
                         stockVal.push(data);
                         $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
-                      var frd=[]
-                      $.each(stockVal,function(i,item){
-                        
-                        $.each(item["Monthly Adjusted Time Series"],function(i,item){
-                        frd.push([i,item["4. close"]]);
-
-                        });
-                        console.log(frd);
-                      });
+                      chartyap(stockVal);
                     }
                 });
             });
@@ -47,7 +39,7 @@ function getfinanceinfo() {
 
 
 
-/*var seriesOptions = [],
+var seriesOptions = [],
     seriesCounter = 0;
 
 function createChart() {
@@ -94,6 +86,7 @@ function createChart() {
 function chartyap(asd){
 console.log(1);
 $.each(asd, function (i, item) {
+  var frd=[];
 var stckname=item["Meta Data"]["2. Symbol"];
 $.each(item["Monthly Adjusted Time Series"],function(i,item){
 frd.push([i,item["4. close"]])
