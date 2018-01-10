@@ -38,8 +38,8 @@ function getfinanceinfo() {
 
 
 
-var seriesOptions = [],
-    seriesCounter = 0;
+var seriesOptions = [];
+
 
 function createChart() {
     Highcharts.stockChart('chartZone', {
@@ -81,7 +81,7 @@ function createChart() {
 
 
 function chartyap(asd){
-
+   var seriesCounter = 0;
 $.each(asd, function (i, item) {
   var frd=[];
 var stckname=item["Meta Data"]["2. Symbol"];
@@ -95,9 +95,10 @@ frd.push([Date.parse(i),parseFloat(item["4. close"])])
         };
 
       seriesCounter += 1;
+    console.log(seriesCounter);
       if (seriesCounter === asd.length){
               createChart();
-        console.log(seriesOptions.length);
+      
       }
 
         
