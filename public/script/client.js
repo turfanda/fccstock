@@ -28,6 +28,7 @@ function getfinanceinfo() {
                     success: function(data) {
                         stockVal.push(data);
                         $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
+                      $.each(stockVal,function(i,item){});
                     }
                 });
             });
@@ -38,10 +39,11 @@ function getfinanceinfo() {
 
 
 
-var seriesOptions = [],
+/*var seriesOptions = [],
     seriesCounter = 0;
 
 function createChart() {
+  console.log(2);
 
     Highcharts.stockChart('chartZone', {
 
@@ -82,14 +84,16 @@ function createChart() {
 
 
 function chartyap(asd){
+console.log(1);
 $.each(asd, function (i, item) {
-var data=[];
+var frd=[];
 $.each(item["Monthly Adjusted Time Series"],function(i,item){
-data.push([Object.keys(item),item["4. close"]])
+frd.push([Object.keys(item),item["4. close"]])
 });
+  console.log(frd);
       seriesOptions[i] = {
             name: item["Meta Data"]["2. Symbol"],
-            data: data
+            data: frd
         };
       seriesCounter += 1;
       if (seriesCounter === asd.length)
@@ -98,6 +102,7 @@ data.push([Object.keys(item),item["4. close"]])
 });
 
 }
+*/
 
 
 
@@ -124,7 +129,6 @@ $(function() {
                 success: function(data) {
                     stockVal.push(data);
                     $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
-                  chartyap(stockVal);
                 }
             });
         });
