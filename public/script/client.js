@@ -23,7 +23,7 @@ function getfinanceinfo() {
                 console.log(item);
                 stocks.push(item);
                 $.ajax({
-                    url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item + "&apikey=" + apikey,
+                    url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + item + "&apikey=" + apikey,
                     type: "get",
                     success: function(data) {
                         stockVal.push(data);
@@ -84,11 +84,11 @@ function createChart() {
 
 
 function chartyap(asd){
-console.log(1);
+
 $.each(asd, function (i, item) {
   var frd=[];
 var stckname=item["Meta Data"]["2. Symbol"];
-$.each(item["Monthly Adjusted Time Series"],function(i,item){
+$.each(item["Time Series (Daily)"],function(i,item){
 frd.push([Date.parse(i),parseFloat(item["4. close"])])
 });
   console.log(frd);
@@ -125,7 +125,7 @@ $(function() {
             stocks.push(item);
             $(".stockBox").remove();
             $.ajax({
-                url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item + "&apikey=" + apikey,
+                url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + item + "&apikey=" + apikey,
                 type: "get",
                 success: function(data) {
                     stockVal.push(data);
@@ -138,7 +138,7 @@ $(function() {
 
     $("#getStock").on("click", function() {
         $.ajax({
-            url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + $("#stockVal").val() + "&apikey=" + apikey,
+            url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + $("#stockVal").val() + "&apikey=" + apikey,
             type: "get",
             success: function(data) {
                 if (data["Error Message"]) {
@@ -170,7 +170,7 @@ $(function() {
         });
         $.each(stocks, function(index, item) {
             $.ajax({
-                url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item + "&apikey=" + apikey,
+                url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + item + "&apikey=" + apikey,
                 type: "get",
                 success: function(data) {
                     stockVal.push(data);
