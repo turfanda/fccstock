@@ -79,18 +79,28 @@ function createChart() {
     });
 
 }
-$.each(stockVal, function (i, name) {
 
+
+/*function chartyap(asd){
+$.each(asd, function (i, item) {
+var data=[];
+$.each(item["Monthly Adjusted Time Series"],function(i,item){
+data.push()
+});
       seriesOptions[i] = {
-            name: name,
+            name: item["Meta Data"]["2. Symbol"],
             data: data
         };
       seriesCounter += 1;
-
-        if (seriesCounter === names.length)
-            createChart();
+      if (seriesCounter === asd.length)
+      createChart();
         
-    });
+});
+
+}*/
+
+
+
 
 
   
