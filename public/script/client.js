@@ -20,7 +20,6 @@ function getfinanceinfo() {
         type: "get",
         success: function(data) {
             $.each(data, function(index, item) {
-                console.log(item);
                 stocks.push(item);
                 $.ajax({
                     url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + item + "&apikey=" + apikey,
@@ -43,8 +42,6 @@ var seriesOptions = [],
     seriesCounter = 0;
 
 function createChart() {
-  console.log(2);
-
     Highcharts.stockChart('chartZone', {
 
         rangeSelector: {
@@ -91,11 +88,12 @@ var stckname=item["Meta Data"]["2. Symbol"];
 $.each(item["Time Series (Daily)"],function(i,item){
 frd.push([Date.parse(i),parseFloat(item["4. close"])])
 });
-  console.log(frd);
+  frd.reverse();
       seriesOptions[i] = {
             name: stckname,
             data: frd
         };
+  
       seriesCounter += 1;
       if (seriesCounter === asd.length)
       createChart();
@@ -121,7 +119,6 @@ $(function() {
     socket.on('stockArray', function(data) {
         stocks = data;
         $.each(stocks, function(index, item) {
-            console.log(item);
             stocks.push(item);
             $(".stockBox").remove();
             $.ajax({
@@ -145,7 +142,6 @@ $(function() {
                     alert("Invalid Stock Code");
                 } else {
                     stockVal.push(data);
-                    console.log(stockVal);
                     if (stocks.length > 9) {
                         alert("you can view up to 10 stock");
                         return;
