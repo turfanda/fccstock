@@ -93,10 +93,13 @@ frd.push([Date.parse(i),parseFloat(item["4. close"])])
             name: stckname,
             data: frd
         };
-  
+
       seriesCounter += 1;
-      if (seriesCounter === asd.length)
-      createChart();
+      if (seriesCounter === asd.length){
+              createChart();
+        console.log(seriesOptions.length);
+      }
+
         
 });
 
