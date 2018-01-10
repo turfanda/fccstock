@@ -89,7 +89,7 @@ $.each(asd, function (i, item) {
   var frd=[];
 var stckname=item["Meta Data"]["2. Symbol"];
 $.each(item["Monthly Adjusted Time Series"],function(i,item){
-frd.push([i,item["4. close"]])
+frd.push([Date.parse(i),parseFloat(item["4. close"])])
 });
   console.log(frd);
       seriesOptions[i] = {
@@ -130,6 +130,7 @@ $(function() {
                 success: function(data) {
                     stockVal.push(data);
                     $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
+                  chartyap(stockVal);
                 }
             });
         });
@@ -153,6 +154,7 @@ $(function() {
                         stocks.push(stockName);
                         socket.emit("stockArray", stocks);
                         $(".stockZone").append($("<div>").attr("id", stockName).text(stockName).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
+                      chartyap(stockVal);
                     }
                 }
             }
@@ -172,6 +174,7 @@ $(function() {
                 type: "get",
                 success: function(data) {
                     stockVal.push(data);
+                  chartyap(stockVal);
                 }
             });
 
