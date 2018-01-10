@@ -81,11 +81,11 @@ function createChart() {
 }
 
 
-/*function chartyap(asd){
+function chartyap(asd){
 $.each(asd, function (i, item) {
 var data=[];
 $.each(item["Monthly Adjusted Time Series"],function(i,item){
-data.push()
+data.push([Object.keys(item),item["4. close"]])
 });
       seriesOptions[i] = {
             name: item["Meta Data"]["2. Symbol"],
@@ -97,7 +97,7 @@ data.push()
         
 });
 
-}*/
+}
 
 
 
@@ -124,6 +124,7 @@ $(function() {
                 success: function(data) {
                     stockVal.push(data);
                     $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
+                  chartyap(stockVal);
                 }
             });
         });
