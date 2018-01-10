@@ -14,50 +14,50 @@ function getapikey() {
 
 }
 
-function getfinanceinfo(){
-  $.ajax({
-    url:"/getstock",
-    type:"get",
-    success: function(data){
-      $.each(data,function(index,item){
-        console.log(item);
-        stocks.push(item);
-         $.ajax({
-            url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item+ "&apikey=" + apikey,
-            type: "get",
-            success: function(data) {
-                  stockVal.push(data);
-              $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));  
-                }
-        });
-      });
-    }
-  });
+function getfinanceinfo() {
+    $.ajax({
+        url: "/getstock",
+        type: "get",
+        success: function(data) {
+            $.each(data, function(index, item) {
+                console.log(item);
+                stocks.push(item);
+                $.ajax({
+                    url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item + "&apikey=" + apikey,
+                    type: "get",
+                    success: function(data) {
+                        stockVal.push(data);
+                        $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
+                    }
+                });
+            });
+        }
+    });
 
 }
 
 $(function() {
-  if (!apikey)
+    if (!apikey)
         getapikey();
-  if(stocks.length===0)
-    getfinanceinfo();
+    if (stocks.length === 0)
+        getfinanceinfo();
 
     socket = io();
     socket.on('stockArray', function(data) {
-      stocks=data;
-      $.each(stocks,function(index,item){
-        console.log(item);
-        stocks.push(item);
-        $(".stockBox").remove();
-         $.ajax({
-            url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item+ "&apikey=" + apikey,
-            type: "get",
-            success: function(data) {
-                  stockVal.push(data);
-              $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));  
+        stocks = data;
+        $.each(stocks, function(index, item) {
+            console.log(item);
+            stocks.push(item);
+            $(".stockBox").remove();
+            $.ajax({
+                url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item + "&apikey=" + apikey,
+                type: "get",
+                success: function(data) {
+                    stockVal.push(data);
+                    $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
                 }
+            });
         });
-      });
     });
 
     $("#getStock").on("click", function() {
@@ -68,7 +68,7 @@ $(function() {
                 if (data["Error Message"]) {
                     alert("Invalid Stock Code");
                 } else {
-                  stockVal.push(data);
+                    stockVal.push(data);
                     console.log(stockVal);
                     if (stocks.length > 9) {
                         alert("you can view up to 10 stock");
@@ -86,9 +86,20 @@ $(function() {
 
     $(document).on('click', ".closeBtn", function() {
         stocks = [];
+        stockVal = [];
         $(this).parent().remove();
         $(".stockBox").each(function(index, item) {
             stocks.push($(this).attr("id"));
+        });
+        $.each(stocks, function(index, item) {
+            $.ajax({
+                url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_MONTHLY_ADJUSTED" + "&symbol=" + item + "&apikey=" + apikey,
+                type: "get",
+                success: function(data) {
+                    stockVal.push(data);
+                }
+            });
+
         });
         socket.emit("stockArray", stocks);
     });
