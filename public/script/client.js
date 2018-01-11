@@ -19,16 +19,19 @@ function drawStock(item) {
     return x
 }
 
-function controlStockVal(stockVal,item,control){
-  if(control==="add"){
-  stockVal.push(item);
-    return stockVal;
-  }
-  else if(control==="remove"){
-  }
-  else
-    return stockVal
-          }
+function controlStockVal(stockVal, item, control) {
+    if (control === "add") {
+        stockVal.push(item);
+        return stockVal;
+    } else if (control === "remove") {
+      console.log(stockVal);
+        stockVal = $.grep(stockVal, function(value) {
+          console.log(value["Meta Data"]["2. Symbol"] !== item);
+            return value["Meta Data"]["2. Symbol"] !== item;
+        });
+    } else
+        return stockVal
+}
 function getfinanceinfo() {
     $.ajax({
         url: "/getstock",
