@@ -22,6 +22,7 @@ function drawStock(item) {
 function controlStockVal(stockVal, item, control) {
     if (control === "addobj") {
         stockVal.push(item);
+        chartyap(stockVal);
         return stockVal;
     } else if (control === "remove") {
       console.log(stockVal);
@@ -29,6 +30,7 @@ function controlStockVal(stockVal, item, control) {
           console.log(value["Meta Data"]["2. Symbol"] !== item);
             return value["Meta Data"]["2. Symbol"] !== item;
         });
+              chartyap(stockVal);
       return stockVal;
     }
   else if(control==="addname"){
@@ -50,9 +52,8 @@ function getfinanceinfo() {
                     url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + item + "&apikey=" + apikey,
                     type: "get",
                     success: function(data) {
-                        stockVal=controlStockVal(stockVal,data,"add");
+                        stockVal=controlStockVal(stockVal,data,"addobj");
                         $(".stockZone").append(drawStock(item));
-                        chartyap(stockVal);
                     }
                 });
             });
@@ -182,14 +183,17 @@ $(function() {
 
     $(document).on('click', ".closeBtn", function() {
         stocks = [];
-        stockVal = [];
+      
+      stocks = $.grep(stocks,function(value){
+        return value 
+      
+      });
         $(this).parent().remove();
         $(".stockBox").each(function(index, item) {
             stocks.push($(this).attr("id"));
         });
       
         stockVal = controlStockVal(stockVal,$(this).attr("id"), "remove"); 
-        chartyap(stockVal);
         socket.emit("stockArray", stocks);
     });
 });
