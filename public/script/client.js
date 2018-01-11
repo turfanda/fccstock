@@ -149,6 +149,7 @@ $(function() {
         stockVal=controlStockVal(stockVal, dataName, "remove_with_name");
         stocks=controlStockVal(stocks, dataName, "remove_name");
         $("#"+dataName).remove();
+        chartyap(stockVal);
 
     });
 
