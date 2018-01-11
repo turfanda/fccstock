@@ -43,14 +43,14 @@ function getfinanceinfo() {
         type: "get",
         success: function(data) {
             $.each(data, function(index, item) {
-                stocks.push(item);
+                stocks.push(item.stockName);
                 $.ajax({
-                    url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + item + "&apikey=" + apikey,
+                    url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + item.stockName + "&apikey=" + apikey,
                     type: "get",
                     success: function(data) {
-                        stockVal = controlStockVal(stockVal, data, "addobj");
+                        stockVal = controlStockVal(stockVal, data, "add_with_obj");
                         chartyap(stockVal);
-                        $(".stockZone").append(drawStock(item));
+                        $(".stockZone").append(drawStock(item.stockName));
                     }
                 });
             });
@@ -133,7 +133,7 @@ $(function() {
     socket = io();
     socket.on('addStock', function(dataName) {
         stocks = controlStockVal(stocks, dataName, "add_with_obj")
-                  $.ajax({
+                $.ajax({
                 url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + dataName + "&apikey=" + apikey,
                 type: "get",
                 success: function(data) {
@@ -144,10 +144,10 @@ $(function() {
             });
 
     });
-      socket.on('removeStock', function(dataName) {
+    socket.on('removeStock', function(dataName) {
         stockVal=controlStockVal(stockVal, dataName, "remove_with_name");
         stocks=controlStockVal(stocks, dataName, "remove_name");
-        $("#").parent().attr("id");
+        $("#"+dataName).remove();
 
     });
 
