@@ -160,16 +160,18 @@ $(function() {
             success: function(data) {
                 if (data["Error Message"]) {
                    $("#insertNote").text("Invalid Stock Code").css("color","red");
-                } else {
+                }else if(){
+                         } 
+              else {
                     stockVal.push(data);
                     if (stocks.length > 9) {
                           $("#insertNote").text("Max 10 Stock").css("color","red");
                         return;
                     } else {
-                        var stockName = $("#stockVal").val();
+                        var stockName = $("#stockVal").val().toUpperCase();
                         stocks.push(stockName);
                         socket.emit("addStock", stockName);
-                        $("#insertNote").text("Insert NASDAQ Code")
+                        $("#insertNote").text("Insert NASDAQ Code").css("color","black");
                         $(".stockZone").append(drawStock(stockName));
                         chartyap(stockVal);
                     }
