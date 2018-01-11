@@ -159,16 +159,17 @@ $(function() {
             type: "get",
             success: function(data) {
                 if (data["Error Message"]) {
-                    alert("Invalid Stock Code");
+                   $("#insertNote").text("Invalid Stock Code").css("color","red");
                 } else {
                     stockVal.push(data);
                     if (stocks.length > 9) {
-                        alert("you can view up to 10 stock");
+                          $("#insertNote").text("Max 10 Stock").css("color","red");
                         return;
                     } else {
                         var stockName = $("#stockVal").val();
                         stocks.push(stockName);
                         socket.emit("addStock", stockName);
+                        $("#insertNote").text("Insert NASDAQ Code")
                         $(".stockZone").append(drawStock(stockName));
                         chartyap(stockVal);
                     }
