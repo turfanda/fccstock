@@ -14,6 +14,21 @@ function getapikey() {
 
 }
 
+function drawStock(item) {
+    var x = $("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>"));
+    return x
+}
+
+function controlStockVal(stockVal,item,control){
+  if(control==="add"){
+  stockVal.push(item);
+    return stockVal;
+  }
+  else if(control==="remove"){
+  }
+  else
+    return stockVal
+          }
 function getfinanceinfo() {
     $.ajax({
         url: "/getstock",
@@ -26,8 +41,8 @@ function getfinanceinfo() {
                     type: "get",
                     success: function(data) {
                         stockVal.push(data);
-                        $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
-                      chartyap(stockVal);
+                        $(".stockZone").append(drawStock(item));
+                        chartyap(stockVal);
                     }
                 });
             });
@@ -50,7 +65,7 @@ function createChart() {
 
         yAxis: {
             labels: {
-                formatter: function () {
+                formatter: function() {
                     return (this.value > 0 ? ' + ' : '') + this.value + '%';
                 }
             },
@@ -80,38 +95,32 @@ function createChart() {
 }
 
 
-function chartyap(asd){
-   var seriesCounter = 0;
-$.each(asd, function (i, item) {
-  var frd=[];
-var stckname=item["Meta Data"]["2. Symbol"];
-$.each(item["Time Series (Daily)"],function(i,item){
-frd.push([Date.parse(i),parseFloat(item["4. close"])])
-});
-  frd.reverse();
-      seriesOptions[i] = {
+function chartyap(asd) {
+    var seriesCounter = 0;
+    $.each(asd, function(i, item) {
+        var frd = [];
+        var stckname = item["Meta Data"]["2. Symbol"];
+        $.each(item["Time Series (Daily)"], function(i, item) {
+            frd.push([Date.parse(i), parseFloat(item["4. close"])])
+        });
+        frd.reverse();
+        seriesOptions[i] = {
             name: stckname,
             data: frd
         };
 
-      seriesCounter += 1;
-    console.log(seriesCounter);
-      if (seriesCounter === asd.length){
-              createChart();
-      
-      }
+        seriesCounter += 1;
+        console.log(seriesCounter);
+        if (seriesCounter === asd.length) {
+            createChart();
 
-        
-});
+        }
+
+
+    });
 
 }
 
-
-
-
-
-
-  
 
 $(function() {
     if (!apikey)
@@ -130,8 +139,8 @@ $(function() {
                 type: "get",
                 success: function(data) {
                     stockVal.push(data);
-                    $(".stockZone").append($("<div>").attr("id", item).text(item).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
-                  chartyap(stockVal);
+                    $(".stockZone").append(drawStock(item));
+                    chartyap(stockVal);
                 }
             });
         });
@@ -153,8 +162,8 @@ $(function() {
                         var stockName = $("#stockVal").val();
                         stocks.push(stockName);
                         socket.emit("stockArray", stocks);
-                        $(".stockZone").append($("<div>").attr("id", stockName).text(stockName).addClass("stockBox").append($("<span class='closeBtn'>x</span>")));
-                      chartyap(stockVal);
+                        $(".stockZone").append(drawStock(stockName));
+                        chartyap(stockVal);
                     }
                 }
             }
@@ -174,7 +183,7 @@ $(function() {
                 type: "get",
                 success: function(data) {
                     stockVal.push(data);
-                  chartyap(stockVal);
+                    chartyap(stockVal);
                 }
             });
 
