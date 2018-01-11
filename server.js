@@ -30,6 +30,7 @@ app.get('/apikey', function(req, res,next) {
   var apikey=process.env.ALPHA_API_KEY;  
   res.json(apikey);
 });
+
 app.get('/getstock', function(req, res,next) {  
   stockOp.getStock(function(err,asd){
     if(err) {
@@ -46,7 +47,6 @@ io.sockets.on('connection',function(socket) {
   console.log("We have a new client: " + socket.id);
   socket.on('stockArray',function(data) {
     var newStock = new stockOp({
-      traceparam:"allStock",
       stockNames: data
     })
     stockOp.removeStock(function(err){
@@ -65,7 +65,6 @@ io.sockets.on('connection',function(socket) {
       console.log("stocksaved");
 
     });
-    
     socket.broadcast.emit('stockArray', data);
   });
   socket.on('disconnect', function() {
