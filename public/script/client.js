@@ -19,7 +19,7 @@ function drawStock(item) {
     return x
 }
 
-function controlStockVal(stockVal, item, control) {
+function controlStockVal(stockVal, item, control,callBack) {
     if (control === "add_with_obj") {
         stockVal.push(item);
         return stockVal;
@@ -32,6 +32,8 @@ function controlStockVal(stockVal, item, control) {
             stockVal = $.grep(stockVal, function(value) {
             return value !== item;
         });
+            console.log(stockVal)
+      callBack(stockVal);
        return stockVal;
     } else
         return stockVal;
@@ -178,18 +180,13 @@ $(function() {
 
     $(document).on('click', ".closeBtn", function() {
         var id = $(this).parent().attr("id");
-        console.log(stockVal);
-        stockVal = controlStockVal(stockVal, id, "remove");
-        console.log(stockVal);
-        console.log(stocks);
+        stockVal = controlStockVal(stockVal, id, "remove_name",chartyap);
+      console.log(stockVal);
         stocks = $.grep(stocks, function(value) {
             return value !== id;
         });
-        console.log(stocks);
         socket.emit("removeStock", id);
         $(this).parent().remove();
-
-        chartyap(stockVal);
 
     });
 });
