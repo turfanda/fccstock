@@ -31,4 +31,8 @@
 .input-group{
 width:200px;
 margin:auto;
+height:60px;
+}
+#insertNote{
+  margin:auto
 }
