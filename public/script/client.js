@@ -19,7 +19,7 @@ function drawStock(item) {
     return x
 }
 
-function controlStockVal(stockVal, item, control,callBack) {
+function controlStockVal(stockVal, item, control) {
     if (control === "add_with_obj") {
         stockVal.push(item);
         return stockVal;
@@ -32,8 +32,6 @@ function controlStockVal(stockVal, item, control,callBack) {
             stockVal = $.grep(stockVal, function(value) {
             return value !== item;
         });
-            console.log(stockVal)
-      callBack(stockVal);
        return stockVal;
     } else
         return stockVal;
@@ -63,7 +61,7 @@ function getfinanceinfo() {
 
 
 
-var seriesOptions = [];
+  var seriesOptions = [];
 
 
 function createChart() {
@@ -105,8 +103,8 @@ function createChart() {
 
 
 function chartyap(asd) {
-  console.log(1);
   console.log(asd);
+seriesOptions = [];
     var seriesCounter = 0;
     $.each(asd, function(i, item) {
         var frd = [];
@@ -180,8 +178,8 @@ $(function() {
 
     $(document).on('click', ".closeBtn", function() {
         var id = $(this).parent().attr("id");
-        stockVal = controlStockVal(stockVal, id, "remove_name",chartyap);
-      console.log(stockVal);
+        stockVal = controlStockVal(stockVal, id, "remove_with_name");
+      chartyap(stockVal);
         stocks = $.grep(stocks, function(value) {
             return value !== id;
         });
