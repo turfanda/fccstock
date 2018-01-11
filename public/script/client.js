@@ -19,7 +19,7 @@ function drawStock(item) {
     return x
 }
 
-function controlStockVal(stockVal, item, control) {
+function controlStockVal(stockVal, item, control,callback) {
     if (control === "addobj") {
         stockVal.push(item);
         return stockVal;
@@ -27,14 +27,9 @@ function controlStockVal(stockVal, item, control) {
         stockVal = $.grep(stockVal, function(value) {
             return value["Meta Data"]["2. Symbol"] !== item;
         });
-              chartyap(stockVal);
       return stockVal;
+    } else if(control==="addname"){
     }
-  else if(control==="addname"){
-    
-  }
-  
-  
   else
         return stockVal;
 }
@@ -50,7 +45,7 @@ function getfinanceinfo() {
                     type: "get",
                     success: function(data) {
                         stockVal=controlStockVal(stockVal,data,"addobj");
-                      
+                         $.when(stockVal=controlStockVal(stockVal,data,"addobj")).then(chartyap(stockVal));
 
                         $(".stockZone").append(drawStock(item));
                     }
@@ -179,7 +174,8 @@ $(function() {
       stocks = $.grep(stocks,function(value){return value !==id;});
         socket.emit("stockArray", stocks);
         $(this).parent().remove();
-        stockVal = controlStockVal(stockVal,id, "remove"); 
+        stockVal = controlStockVal(stockVal,id, "remove")
+      chartyap(stockVal); 
         
     });
 });
