@@ -103,7 +103,6 @@ function createChart() {
 
 
 function chartyap(asd) {
-  console.log(asd);
 seriesOptions = [];
     var seriesCounter = 0;
     $.each(asd, function(i, item) {
@@ -154,30 +153,35 @@ $(function() {
     });
 
     $("#getStock").on("click", function() {
+                          if (stocks.length > 9) {
+                          $("#insertNote").text("Max 10 Stock").css("color","red");
+                        return;
+                    }else if($.inArray($("#stockVal").val().toUpperCase(),stocks)!==-1){
+                             $("#insertNote").text("Stock Exist").css("color","red");
+                      return;
+                             } 
+      else {
         $.ajax({
             url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + $("#stockVal").val() + "&apikey=" + apikey,
             type: "get",
             success: function(data) {
                 if (data["Error Message"]) {
                    $("#insertNote").text("Invalid Stock Code").css("color","red");
-                }else if(){
-                         } 
+                }
               else {
                     stockVal.push(data);
-                    if (stocks.length > 9) {
-                          $("#insertNote").text("Max 10 Stock").css("color","red");
-                        return;
-                    } else {
+
                         var stockName = $("#stockVal").val().toUpperCase();
                         stocks.push(stockName);
                         socket.emit("addStock", stockName);
                         $("#insertNote").text("Insert NASDAQ Code").css("color","black");
                         $(".stockZone").append(drawStock(stockName));
                         chartyap(stockVal);
-                    }
+                    
                 }
             }
         });
+                    }
     });
 
     $(document).on('click', ".closeBtn", function() {
