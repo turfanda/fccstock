@@ -22,12 +22,9 @@ function drawStock(item) {
 function controlStockVal(stockVal, item, control) {
     if (control === "addobj") {
         stockVal.push(item);
-        chartyap(stockVal);
         return stockVal;
     } else if (control === "remove") {
-      console.log(stockVal);
         stockVal = $.grep(stockVal, function(value) {
-          console.log(value["Meta Data"]["2. Symbol"] !== item);
             return value["Meta Data"]["2. Symbol"] !== item;
         });
               chartyap(stockVal);
@@ -53,6 +50,8 @@ function getfinanceinfo() {
                     type: "get",
                     success: function(data) {
                         stockVal=controlStockVal(stockVal,data,"addobj");
+                      
+
                         $(".stockZone").append(drawStock(item));
                     }
                 });
@@ -119,17 +118,11 @@ function chartyap(asd) {
             name: stckname,
             data: frd
         };
-
         seriesCounter += 1;
-        console.log(seriesCounter);
         if (seriesCounter === asd.length) {
             createChart();
-
         }
-
-
     });
-
 }
 
 
@@ -182,18 +175,11 @@ $(function() {
     });
 
     $(document).on('click', ".closeBtn", function() {
-        stocks = [];
-      
-      stocks = $.grep(stocks,function(value){
-        return value 
-      
-      });
-        $(this).parent().remove();
-        $(".stockBox").each(function(index, item) {
-            stocks.push($(this).attr("id"));
-        });
-      
-        stockVal = controlStockVal(stockVal,$(this).attr("id"), "remove"); 
+      var id=$(this).parent().attr("id");
+      stocks = $.grep(stocks,function(value){return value !==id;});
         socket.emit("stockArray", stocks);
+        $(this).parent().remove();
+        stockVal = controlStockVal(stockVal,id, "remove"); 
+        
     });
 });
