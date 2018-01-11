@@ -38,34 +38,37 @@ app.get('/getstock', function(req, res,next) {
       }
     else{
       console.log("stockserved");
-      console.log(asd.stockNames);
+      console.log(asd);
+      console.log(asd[0].stockNames);
     res.json(asd[0].stockNames);}
     });
 });
 
 io.sockets.on('connection',function(socket) {
   console.log("We have a new client: " + socket.id);
-  socket.on('stockArray',function(data) {
+  socket.on('addStock',function(data) {
+    console.log(1);
     var newStock = new stockOp({
-      stockNames: data
+      stockName: data
     })
-    stockOp.removeStock(function(err){
-    if(err) {
-      throw err;
-      }
-    else
-      console.log("stockdeleted");
-
-    });
     stockOp.saveStock(newStock,function(err){
     if(err) {
       throw err;
       }
     else
       console.log("stocksaved");
-
     });
-    socket.broadcast.emit('stockArray', data);
+    socket.broadcast.emit('addStock', data);
+  });
+    socket.on('removeStock',function(data) {
+    stockOp.removeStock(data,function(err){
+    if(err) {
+      throw err;
+      }
+    else
+      console.log("stockdeleted");
+    });
+    socket.broadcast.emit('removeStock', data);
   });
   socket.on('disconnect', function() {
     console.log("Client has disconnected");

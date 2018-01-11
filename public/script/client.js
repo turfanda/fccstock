@@ -126,8 +126,8 @@ $(function() {
         getfinanceinfo();
 
     socket = io();
-    socket.on('stockArray', function(data) {
-        stocks = data;
+    socket.on('addStock', function(data) {
+        stocks.push(data);
         $.each(stocks, function(index, item) {
             stocks.push(item);
             $(".stockBox").remove();
@@ -158,7 +158,7 @@ $(function() {
                     } else {
                         var stockName = $("#stockVal").val();
                         stocks.push(stockName);
-                        socket.emit("stockArray", stockName);
+                        socket.emit("addStock", stockName);
                         $(".stockZone").append(drawStock(stockName));
                         chartyap(stockVal);
                     }
@@ -175,7 +175,7 @@ $(function() {
             return value !== id;
         });
         console.log(stocks);
-        socket.emit("stockArray", id);
+        socket.emit("removeStock", id);
         $(this).parent().remove();
 
         chartyap(stockVal);
