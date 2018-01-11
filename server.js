@@ -38,7 +38,7 @@ app.get('/getstock', function(req, res,next) {
       }
     else{
       console.log("stockserved");
-      console.log(asd[0]);
+      console.log(asd.stockNames);
     res.json(asd[0].stockNames);}
     });
 });

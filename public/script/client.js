@@ -158,7 +158,7 @@ $(function() {
                     } else {
                         var stockName = $("#stockVal").val();
                         stocks.push(stockName);
-                        socket.emit("stockArray", stocks);
+                        socket.emit("stockArray", stockName);
                         $(".stockZone").append(drawStock(stockName));
                         chartyap(stockVal);
                     }
@@ -169,13 +169,13 @@ $(function() {
 
     $(document).on('click', ".closeBtn", function() {
         var id = $(this).parent().attr("id");
-              stockVal = controlStockVal(stockVal, id, "remove");
-      console.log(stocks);  
-      stocks = $.grep(stocks, function(value) {
+        stockVal = controlStockVal(stockVal, id, "remove");
+        console.log(stocks);
+        stocks = $.grep(stocks, function(value) {
             return value !== id;
         });
-        console.log(stocks);  
-        socket.emit("stockArray", stocks);
+        console.log(stocks);
+        socket.emit("stockArray", id);
         $(this).parent().remove();
 
         chartyap(stockVal);
