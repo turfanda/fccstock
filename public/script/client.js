@@ -157,7 +157,7 @@ $(function() {
                           $("#insertNote").text("Max 10 Stock").css("color","red");
                         return;
                     }else if($.inArray($("#stockVal").val().toUpperCase(),stocks)!==-1){
-                             $("#insertNote").text("Stock Exist").css("color","red");
+                             alert("Stock Exist");
                       return;
                              } 
       else {
