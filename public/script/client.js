@@ -86,8 +86,7 @@ function createChart() {
 
         plotOptions: {
             series: {
-                compare: 'percent',
-                showInNavigator: true
+                compare: 'percent'
             }
         },
 
@@ -104,6 +103,8 @@ function createChart() {
 
 
 function chartyap(asd) {
+  console.log(1);
+  console.log(asd);
     var seriesCounter = 0;
     $.each(asd, function(i, item) {
         var frd = [];
@@ -137,7 +138,7 @@ $(function() {
                 url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + dataName + "&apikey=" + apikey,
                 type: "get",
                 success: function(data) {
-                    stockVal=controlStockVal(stockVal, data, "add_with_obj")
+                    stockVal=controlStockVal(stockVal, data, "add_with_obj");
                     $(".stockZone").append(drawStock(dataName));
                     chartyap(stockVal);
                 }
@@ -177,7 +178,9 @@ $(function() {
 
     $(document).on('click', ".closeBtn", function() {
         var id = $(this).parent().attr("id");
+        console.log(stockVal);
         stockVal = controlStockVal(stockVal, id, "remove");
+        console.log(stockVal);
         console.log(stocks);
         stocks = $.grep(stocks, function(value) {
             return value !== id;
