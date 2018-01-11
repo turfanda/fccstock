@@ -20,15 +20,20 @@ function drawStock(item) {
 }
 
 function controlStockVal(stockVal, item, control) {
-    if (control === "addobj") {
+    if (control === "add_with_obj") {
         stockVal.push(item);
         return stockVal;
-    } else if (control === "remove") {
+    } else if (control === "remove_with_name") {
         stockVal = $.grep(stockVal, function(value) {
             return value["Meta Data"]["2. Symbol"] !== item;
         });
         return stockVal;
-    } else if (control === "addname") {} else
+    } else if (control === "remove_name") {
+            stockVal = $.grep(stockVal, function(value) {
+            return value !== item;
+        });
+       return stockVal;
+    } else
         return stockVal;
 }
 
@@ -126,21 +131,24 @@ $(function() {
         getfinanceinfo();
 
     socket = io();
-    socket.on('addStock', function(data) {
-        stocks.push(data);
-        $.each(stocks, function(index, item) {
-            stocks.push(item);
-            $(".stockBox").remove();
-            $.ajax({
-                url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + item + "&apikey=" + apikey,
+    socket.on('addStock', function(dataName) {
+        stocks = controlStockVal(stocks, dataName, "add_with_obj")
+                  $.ajax({
+                url: "https://www.alphavantage.co/query?function=" + "TIME_SERIES_DAILY" + "&symbol=" + dataName + "&apikey=" + apikey,
                 type: "get",
                 success: function(data) {
-                    stockVal.push(data);
-                    $(".stockZone").append(drawStock(item));
+                    stockVal=controlStockVal(stockVal, data, "add_with_obj")
+                    $(".stockZone").append(drawStock(dataName));
                     chartyap(stockVal);
                 }
             });
-        });
+
+    });
+      socket.on('removeStock', function(dataName) {
+        stockVal=controlStockVal(stockVal, dataName, "remove_with_name");
+        stocks=controlStockVal(stocks, dataName, "remove_name");
+        $("#").parent().attr("id");
+
     });
 
     $("#getStock").on("click", function() {
